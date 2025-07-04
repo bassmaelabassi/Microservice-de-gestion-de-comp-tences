@@ -2,6 +2,7 @@ const express = require("express");
 const router = express.Router();
 const controller = require("../controllers/competenceController");
 
+router.get("/competences/:id", controller.getById);
 router.get("/competences", controller.getAll);
 router.post("/competences", controller.create);
 router.put("/competences/:id/evaluation", controller.updateEval);
@@ -12,5 +13,6 @@ router.get('/competences/debug/all', async (req, res) => {
   const all = await Competence.find();
   res.json(all);
 });
+router.post("/competences/resolve-tie", controller.resolveTie);
 
 module.exports = router;

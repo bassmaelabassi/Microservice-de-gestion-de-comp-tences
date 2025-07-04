@@ -1,0 +1,9 @@
+{
+  "dependencies": {
+    "cors": "^2.8.5",
+    "yup": "^1.6.1"
+  },
+  "devDependencies": {
+    "jest": "^30.0.4"
+  }
+}

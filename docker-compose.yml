@@ -1,0 +1,43 @@
+version: '3.8'
+
+services:
+  mongo:
+    image: mongo:6
+    container_name: mongo
+    restart: always
+    ports:
+      - '27017:27017'
+    volumes:
+      - mongo_data:/data/db
+
+  backend:
+    build: ./backend
+    container_name: backend
+    restart: always
+    ports:
+      - '9001:9000'
+    environment:
+      - MONGO_URI=mongodb://mongo:27017/competences
+      - NODE_ENV=development
+    depends_on:
+      - mongo
+    volumes:
+      - ./backend:/app
+
+  frontend:
+    build: ./frontend
+    container_name: frontend
+    restart: always
+    ports:
+      - '3000:80'
+    depends_on:
+      - backend
+    environment:
+      - VITE_API_URL=http://backend:9000/api
+
+volumes:
+  mongo_data:
+
+networks:
+  mern-network:
+    driver: bridge 
